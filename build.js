@@ -11,6 +11,7 @@ const pageTemplate = Handlebars.compile(indexHtml)
 const styleLinkTemplate = Handlebars.compile(styleLink)
 const distDirectories = ['dist', 'dist/css']
 const newCssFiles = []
+const Markdown = require('./src/markdown.js')
 
 // make a dist folder if it doesn't exist
 distDirectories.forEach(dir => {
