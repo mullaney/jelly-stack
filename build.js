@@ -62,11 +62,11 @@ const styleLinks = newCssFiles.reduce((acc, filename) => {
 }, '')
 
 pages.forEach(file => {
-  //get base name
-  const markdown = fs.readFileSync( file, 'utf-8' )
+  const markdown = (new Markdown(file)).load()
   const html = pageTemplate({
-    content: converter.makeHtml(markdown),
-    styleLinks: styleLinks
+    content: converter.makeHtml(markdown.html()),
+    styleLinks: styleLinks,
+    title: markdown.metadata().title
   })
   fs.writeFileSync(`${distDir}/${newFilename(file)}`, html)
 })
