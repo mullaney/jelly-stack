@@ -12,6 +12,7 @@ const styleLinkTemplate = Handlebars.compile(styleLink)
 const distDirectories = ['dist', 'dist/css']
 const newCssFiles = []
 const Markdown = require('./src/markdown.js')
+const Metadata = require('./src/metadata.js')
 
 // make a dist folder if it doesn't exist
 distDirectories.forEach(dir => {
@@ -66,7 +67,8 @@ pages.forEach(file => {
   const html = pageTemplate({
     content: converter.makeHtml(markdown.html()),
     styleLinks: styleLinks,
-    title: markdown.metadata().title
+    title: markdown.metadata().title,
+    metadata: (new Metadata(markdown.metadata()).build().metadata())
   })
   fs.writeFileSync(`${distDir}/${newFilename(file)}`, html)
 })
