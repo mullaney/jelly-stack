@@ -1,0 +1,16 @@
+{
+  "name": "markdown-to-html",
+  "version": "0.0.1",
+  "description": "Engine to build websites from markdown",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./build.js"
+  },
+  "author": "Kevin Kelly",
+  "license": "ISC",
+  "dependencies": {
+    "glob": "^7.1.6",
+    "showdown": "^1.9.1"
+  }
+}
