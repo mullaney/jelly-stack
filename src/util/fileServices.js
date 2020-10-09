@@ -6,4 +6,10 @@ const makeDirectories = function(fs, dirs) {
   })
 }
 
-module.exports = { makeDirectories }
+const newFilename = file => {
+  const pathParts = file.split('/')
+  const fileName = pathParts[pathParts.length - 1].split('.md')[0]
+  return fileName + '.html'
+}
+
+module.exports = { makeDirectories, newFilename }

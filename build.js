@@ -13,18 +13,12 @@ const newCssFiles = []
 const Markdown = require('./src/markdown.js')
 const Metadata = require('./src/metadata.js')
 
-const { makeDirectories } = require('./src/util/fileServices')
+const { makeDirectories, newFilename } = require('./src/util/fileServices')
 makeDirectories(fs, ['dist', 'dist/css'])
 
 // Get a list of all files in pages dir
 const pages = glob.sync(pagesDir + '/**/*.md')
 const cssFiles = glob.sync('assets/css/**/*.css')
-
-const newFilename = file => {
-  const pathParts = file.split('/')
-  const fileName = pathParts[pathParts.length - 1].split('.md')[0]
-  return fileName + '.html'
-}
 
 const newCssFilename = file => {
   const pathParts = file.split('/')
