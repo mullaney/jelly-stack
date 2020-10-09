@@ -9,17 +9,12 @@ const indexHtml = fs.readFileSync( 'templates/index.html', 'utf-8' )
 const styleLink = fs.readFileSync( 'templates/style_link.html', 'utf-8' )
 const pageTemplate = Handlebars.compile(indexHtml)
 const styleLinkTemplate = Handlebars.compile(styleLink)
-const distDirectories = ['dist', 'dist/css']
 const newCssFiles = []
 const Markdown = require('./src/markdown.js')
 const Metadata = require('./src/metadata.js')
 
-// make a dist folder if it doesn't exist
-distDirectories.forEach(dir => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
-  }
-})
+const { makeDirectories } = require('./src/util/fileServices')
+makeDirectories(fs, ['dist', 'dist/css'])
 
 // Get a list of all files in pages dir
 const pages = glob.sync(pagesDir + '/**/*.md')
