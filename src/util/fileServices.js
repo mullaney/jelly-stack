@@ -12,4 +12,11 @@ const newFilename = file => {
   return fileName + '.html'
 }
 
-module.exports = { makeDirectories, newFilename }
+const newCssFilename = file => {
+  const pathParts = file.split('/')
+  const fileNameParts = pathParts[pathParts.length - 1].split('.')
+  const timestamp = String(fs.statSync(file).mtimeMs).split('.')[0]
+  return `${fileNameParts[0]}.${timestamp}.${fileNameParts[1]}`
+}
+
+module.exports = { makeDirectories, newFilename, newCssFilename }
