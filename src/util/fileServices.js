@@ -1,4 +1,4 @@
-const makeDirectories = function(fs, dirs) {
+function makeDirectories(fs, dirs) {
   dirs.forEach(dir => {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir)
@@ -6,13 +6,13 @@ const makeDirectories = function(fs, dirs) {
   })
 }
 
-const newFilename = file => {
+function newFilename(file) {
   const pathParts = file.split('/')
   const fileName = pathParts[pathParts.length - 1].split('.md')[0]
   return fileName + '.html'
 }
 
-const newCssFilename = file => {
+function newCssFilename(fs, file) {
   const pathParts = file.split('/')
   const fileNameParts = pathParts[pathParts.length - 1].split('.')
   const timestamp = String(fs.statSync(file).mtimeMs).split('.')[0]
