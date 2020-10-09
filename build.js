@@ -23,10 +23,10 @@ const cssFiles = glob.sync('assets/css/**/*.css')
 cssFiles.forEach(cssFile => {
   const pathParts = cssFile.split('/')
   const rootName = pathParts[pathParts.length - 1].split('.css')[0]
-  const newCssFile = `dist/css/${newCssFilename(cssFile)}`
+  const newCssFile = `dist/css/${newCssFilename(fs, cssFile)}`
   const oldVersions = glob.sync('dist/css/' + rootName + '.*.css')
 
-  newCssFiles.push(`css/${newCssFilename(cssFile)}`)
+  newCssFiles.push(`css/${newCssFilename(fs, cssFile)}`)
 
   if (!fs.existsSync(newCssFile)) {
     oldVersions.forEach(version => {
