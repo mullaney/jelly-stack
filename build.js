@@ -4,7 +4,7 @@ const showdown = require('showdown')
 
 // Make directories
 const { makeDirectories, newFilename } = require('./src/util/fileServices.js')
-makeDirectories(fs, ['dist', 'dist/css'])
+makeDirectories(fs, ['dist', 'dist/css', 'dist/images'])
 
 // Get a list of all files in pages dir
 const pagesDir = 'pages'
@@ -21,6 +21,8 @@ const mainTemplate = Handlebars.compile(mainHtml)
 
 const applicationHtml = fs.readFileSync( 'templates/application.html', 'utf-8' )
 const applicationTemplate = Handlebars.compile(applicationHtml)
+const { processImagesForDistribution, replaceImageSrcInFile } = require('./src/util/imageService')
+const imageMap = processImagesForDistribution()
 
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
@@ -35,5 +37,6 @@ pages.forEach(file => {
     metadata: compiledMetadata
   })
   const distDir = 'dist'
-  fs.writeFileSync(`${distDir}/${newFilename(file)}`, html)
+  const htmlWithImages = replaceImageSrcInFile(html, imageMap)
+  fs.writeFileSync(`${distDir}/${newFilename(file)}`, htmlWithImages)
 })
