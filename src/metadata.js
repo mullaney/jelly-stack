@@ -1,4 +1,4 @@
-import Handlebars from 'handlebars'
+const Handlebars = require('handlebars')
 const meta = Handlebars.compile('  <meta name="{{ name }}" content="{{ content }}">')
 const ogMeta = Handlebars.compile('  <meta property="{{ property }}" content="{{ content }}">')
 
@@ -32,4 +32,4 @@ class Metadata {
   }
 }
 
-export default Metadata
+module.exports = Metadata
