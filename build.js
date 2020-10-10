@@ -1,22 +1,22 @@
-import fs from 'fs'
-import glob from 'glob'
-import showdown from 'showdown'
+const fs = require('fs')
+const glob = require('glob')
+const showdown = require('showdown')
 const converter = new showdown.Converter()
 const pagesDir = 'pages'
 const distDir = 'dist'
-import Handlebars from 'handlebars'
+const Handlebars = require('handlebars')
 const indexHtml = fs.readFileSync( 'templates/index.html', 'utf-8' )
 const styleLink = fs.readFileSync( 'templates/style_link.html', 'utf-8' )
 const pageTemplate = Handlebars.compile(indexHtml)
 const styleLinkTemplate = Handlebars.compile(styleLink)
 const newCssFiles = []
-import { loopedTemplateRender } from './src/util/templateRender.js'
+const { loopedTemplateRender } = require('./src/util/templateRender.js')
 
 // Make directories
-import { makeDirectories, newFilename, newCssFilename } from './src/util/fileServices.js'
+const { makeDirectories, newFilename, newCssFilename } = require('./src/util/fileServices.js')
 makeDirectories(fs, ['dist', 'dist/css'])
-import Markdown from './src/markdown.js'
-import Metadata from './src/metadata.js'
+const Markdown = require('./src/markdown.js')
+const Metadata = require('./src/metadata.js')
 
 
 // Get a list of all files in pages dir
