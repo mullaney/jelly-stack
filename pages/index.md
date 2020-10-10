@@ -1,11 +1,15 @@
 <!--
-  "title": "The New Kelly Chronicle",
-  "author": "Dee Kelly",
-  "description": "Stories about the Kellys",
-  "image": "https://www.state.gov/wp-content/uploads/2018/11/Ireland-2109x1406.jpg",
-  "published": "June 28, 2020"
+  "title": "The Jelly Stack",
+  "author": "Kevin kelly",
+  "description": "Publish static html/css sites from markdown",
+  "image": "./images/jelly.png",
+  "published": "October 10, 2020"
 -->
 
-# The New Kelly Chronicle!
+<img src="./images/jelly.png" alt="Jelly" width="340">
 
-Here is the [about page](/about.html).
+# The Jelly Stack
+
+What is Jelly Stack? It's a super fast way to create a website. Edit the markdown, run `npm run build` and copy the contents of the dist folder to a webserver. You can automate the process using services like github pages or netlify to deploy in seconds.
+
+Check out the [repo on github](https://github.com/mullaney/jelly-stack).

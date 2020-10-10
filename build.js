@@ -1,57 +1,42 @@
 const fs = require('fs')
 const glob = require('glob')
 const showdown = require('showdown')
-const converter = new showdown.Converter()
-const pagesDir = 'pages'
-const distDir = 'dist'
-const Handlebars = require('handlebars')
-const indexHtml = fs.readFileSync( 'templates/index.html', 'utf-8' )
-const styleLink = fs.readFileSync( 'templates/style_link.html', 'utf-8' )
-const pageTemplate = Handlebars.compile(indexHtml)
-const styleLinkTemplate = Handlebars.compile(styleLink)
-const newCssFiles = []
-const { loopedTemplateRender } = require('./src/util/templateRender.js')
 
 // Make directories
-const { makeDirectories, newFilename, newCssFilename } = require('./src/util/fileServices.js')
-makeDirectories(fs, ['dist', 'dist/css'])
-const Markdown = require('./src/markdown.js')
-const Metadata = require('./src/metadata.js')
-
+const { makeDirectories, newFilename } = require('./src/util/fileServices.js')
+makeDirectories(fs, ['dist', 'dist/css', 'dist/images'])
 
 // Get a list of all files in pages dir
+const pagesDir = 'pages'
 const pages = glob.sync(pagesDir + '/**/*.md')
-const cssFiles = glob.sync('assets/css/**/*.css')
 
-cssFiles.forEach(cssFile => {
-  const pathParts = cssFile.split('/')
-  const rootName = pathParts[pathParts.length - 1].split('.css')[0]
-  const newCssFile = `dist/css/${newCssFilename(fs, cssFile)}`
-  const oldVersions = glob.sync('dist/css/' + rootName + '.*.css')
+const Markdown = require('./src/markdown.js')
+const Metadata = require('./src/metadata.js')
+const Handlebars = require('handlebars')
 
-  newCssFiles.push(`css/${newCssFilename(fs, cssFile)}`)
+const { renderStyleLinks } = require('./src/util/cssService')
 
-  if (!fs.existsSync(newCssFile)) {
-    oldVersions.forEach(version => {
-      if (newCssFile !== version) {
-        fs.unlinkSync(version)
-      }
-    })
-    fs.copyFileSync(cssFile, newCssFile)
-  }
-})
+const mainHtml = fs.readFileSync( 'templates/main.html', 'utf-8' )
+const mainTemplate = Handlebars.compile(mainHtml)
 
-const cssFilesData = newCssFiles.map( function(f) { return { cssFilename: f } })
-const styleLinks = loopedTemplateRender(styleLinkTemplate, cssFilesData)
+const applicationHtml = fs.readFileSync( 'templates/application.html', 'utf-8' )
+const applicationTemplate = Handlebars.compile(applicationHtml)
+const { processImagesForDistribution, replaceImageSrcInFile } = require('./src/util/imageService')
+const imageMap = processImagesForDistribution()
 
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
   const compiledMetadata = (new Metadata(markdown.metadata)).build().metadata()
-  const html = pageTemplate({
-    content: converter.makeHtml(markdown.html()),
-    styleLinks: styleLinks,
+  const converter = new showdown.Converter()
+  const content = converter.makeHtml(markdown.html())
+  const mainHtml = mainTemplate({ content })
+  const html = applicationTemplate({
+    main: mainHtml,
+    styleLinks: renderStyleLinks(),
     title: markdown.metadata.title,
     metadata: compiledMetadata
   })
-  fs.writeFileSync(`${distDir}/${newFilename(file)}`, html)
+  const distDir = 'dist'
+  const htmlWithImages = replaceImageSrcInFile(html, imageMap)
+  fs.writeFileSync(`${distDir}/${newFilename(file)}`, htmlWithImages)
 })
