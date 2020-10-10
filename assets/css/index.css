@@ -44,3 +44,9 @@ body > * {
 img {
   max-width: 680px;
 }
+
+.image-centered {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
