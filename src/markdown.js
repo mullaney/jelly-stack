@@ -1,4 +1,4 @@
-const fs = require('fs')
+import fs from 'fs'
 
 class Markdown {
   constructor(path) {
@@ -40,4 +40,4 @@ const getHtml = (content) => {
   return lines.slice(endMetadata + 1).join('\n')
 }
 
-module.exports = Markdown
+export default Markdown

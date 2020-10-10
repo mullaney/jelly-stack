@@ -1,18 +1,18 @@
-const fs = require('fs')
-const glob = require('glob')
-const showdown = require('showdown')
+import fs from 'fs'
+import glob from 'glob'
+import showdown from 'showdown'
 const converter = new showdown.Converter()
 const pagesDir = 'pages'
 const distDir = 'dist'
-const Handlebars = require('handlebars')
+import Handlebars from 'handlebars'
 const indexHtml = fs.readFileSync( 'templates/index.html', 'utf-8' )
 const styleLink = fs.readFileSync( 'templates/style_link.html', 'utf-8' )
 const pageTemplate = Handlebars.compile(indexHtml)
 const styleLinkTemplate = Handlebars.compile(styleLink)
 const distDirectories = ['dist', 'dist/css']
 const newCssFiles = []
-const Markdown = require('./src/markdown.js')
-const Metadata = require('./src/metadata.js')
+import Markdown from './src/markdown.js'
+import Metadata from './src/metadata.js'
 
 // make a dist folder if it doesn't exist
 distDirectories.forEach(dir => {
