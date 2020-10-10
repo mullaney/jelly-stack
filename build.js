@@ -14,7 +14,7 @@ const Markdown = require('./src/markdown.js')
 const Metadata = require('./src/metadata.js')
 const Handlebars = require('handlebars')
 
-const { renderStyleLinks } = require('./src/util/styleFiles')
+const { renderStyleLinks } = require('./src/util/cssService')
 
 const mainHtml = fs.readFileSync( 'templates/main.html', 'utf-8' )
 const mainTemplate = Handlebars.compile(mainHtml)
