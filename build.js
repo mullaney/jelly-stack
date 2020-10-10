@@ -9,42 +9,27 @@ const indexHtml = fs.readFileSync( 'templates/index.html', 'utf-8' )
 const styleLink = fs.readFileSync( 'templates/style_link.html', 'utf-8' )
 const pageTemplate = Handlebars.compile(indexHtml)
 const styleLinkTemplate = Handlebars.compile(styleLink)
-const distDirectories = ['dist', 'dist/css']
 const newCssFiles = []
+import { loopedTemplateRender } from './src/util/templateRender.js'
+
+// Make directories
+import { makeDirectories, newFilename, newCssFilename } from './src/util/fileServices.js'
+makeDirectories(fs, ['dist', 'dist/css'])
 import Markdown from './src/markdown.js'
 import Metadata from './src/metadata.js'
 
-// make a dist folder if it doesn't exist
-distDirectories.forEach(dir => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
-  }
-})
 
 // Get a list of all files in pages dir
 const pages = glob.sync(pagesDir + '/**/*.md')
 const cssFiles = glob.sync('assets/css/**/*.css')
 
-const newFilename = file => {
-  const pathParts = file.split('/')
-  const fileName = pathParts[pathParts.length - 1].split('.md')[0]
-  return fileName + '.html'
-}
-
-const newCssFilename = file => {
-  const pathParts = file.split('/')
-  const fileNameParts = pathParts[pathParts.length - 1].split('.')
-  const timestamp = String(fs.statSync(file).mtimeMs).split('.')[0]
-  return `${fileNameParts[0]}.${timestamp}.${fileNameParts[1]}`
-}
-
 cssFiles.forEach(cssFile => {
   const pathParts = cssFile.split('/')
   const rootName = pathParts[pathParts.length - 1].split('.css')[0]
-  const newCssFile = `dist/css/${newCssFilename(cssFile)}`
+  const newCssFile = `dist/css/${newCssFilename(fs, cssFile)}`
   const oldVersions = glob.sync('dist/css/' + rootName + '.*.css')
 
-  newCssFiles.push(`css/${newCssFilename(cssFile)}`)
+  newCssFiles.push(`css/${newCssFilename(fs, cssFile)}`)
 
   if (!fs.existsSync(newCssFile)) {
     oldVersions.forEach(version => {
@@ -56,11 +41,8 @@ cssFiles.forEach(cssFile => {
   }
 })
 
-
-
-const styleLinks = newCssFiles.reduce((acc, filename) => {
-  return acc + styleLinkTemplate({ cssFilename: filename })
-}, '')
+const cssFilesData = newCssFiles.map( function(f) { return { cssFilename: f } })
+const styleLinks = loopedTemplateRender(styleLinkTemplate, cssFilesData)
 
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
