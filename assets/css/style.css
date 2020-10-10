@@ -1,4 +1,46 @@
+* {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 21px;
+  line-height: 32px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+h5, h6 {
+  font-size: 1.1rem;
+}
+
 body {
   background-color: white;
-  color: darkblue;
+  max-width: 1192px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+body > * {
+  max-width: 680px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+img {
+  max-width: 680px;
 }
