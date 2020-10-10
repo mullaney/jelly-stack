@@ -12,9 +12,12 @@ const styleLinkTemplate = Handlebars.compile(styleLink)
 const newCssFiles = []
 const Markdown = require('./src/markdown.js')
 const Metadata = require('./src/metadata.js')
+const { loopedTemplateRender } = require('./src/util/templateRender')
 
+// Make directories
 const { makeDirectories, newFilename, newCssFilename } = require('./src/util/fileServices')
 makeDirectories(fs, ['dist', 'dist/css'])
+
 
 // Get a list of all files in pages dir
 const pages = glob.sync(pagesDir + '/**/*.md')
@@ -38,11 +41,8 @@ cssFiles.forEach(cssFile => {
   }
 })
 
-
-
-const styleLinks = newCssFiles.reduce((acc, filename) => {
-  return acc + styleLinkTemplate({ cssFilename: filename })
-}, '')
+const cssFilesData = newCssFiles.map( function(f) { return { cssFilename: f } })
+const styleLinks = loopedTemplateRender(styleLinkTemplate, cssFilesData)
 
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
