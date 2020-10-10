@@ -64,11 +64,12 @@ const styleLinks = newCssFiles.reduce((acc, filename) => {
 
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
+  const compiledMetadata = (new Metadata(markdown.metadata)).build().metadata()
   const html = pageTemplate({
     content: converter.makeHtml(markdown.html()),
     styleLinks: styleLinks,
-    title: markdown.metadata().title,
-    metadata: (new Metadata(markdown.metadata()).build().metadata())
+    title: markdown.metadata.title,
+    metadata: compiledMetadata
   })
   fs.writeFileSync(`${distDir}/${newFilename(file)}`, html)
 })

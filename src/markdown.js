@@ -18,7 +18,7 @@ class Markdown {
     return this._html
   }
 
-  metadata() {
+  get metadata() {
     return this._metadata
   }
 }

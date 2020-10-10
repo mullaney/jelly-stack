@@ -4,7 +4,8 @@
   "description": "Engine to build websites from markdown",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --reporter spec",
+    "watch": "mocha --reporter spec --watch",
     "build": "node ./build.js",
     "build:watch": "nodemon build.js --ext '*'"
   },
@@ -19,5 +20,9 @@
     "node": ">=14.13.0",
     "npm": ">=6.14.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1"
+  }
 }
