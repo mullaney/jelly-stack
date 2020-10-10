@@ -5,9 +5,11 @@ const converter = new showdown.Converter()
 const pagesDir = 'pages'
 const distDir = 'dist'
 const Handlebars = require('handlebars')
-const indexHtml = fs.readFileSync( 'templates/index.html', 'utf-8' )
+const applicationHtml = fs.readFileSync( 'templates/application.html', 'utf-8' )
+const mainHtml = fs.readFileSync( 'templates/main.html', 'utf-8' )
 const styleLink = fs.readFileSync( 'templates/style_link.html', 'utf-8' )
-const pageTemplate = Handlebars.compile(indexHtml)
+const applicationTemplate = Handlebars.compile(applicationHtml)
+const mainTemplate = Handlebars.compile(mainHtml)
 const styleLinkTemplate = Handlebars.compile(styleLink)
 const newCssFiles = []
 const { loopedTemplateRender } = require('./src/util/templateRender.js')
@@ -47,8 +49,10 @@ const styleLinks = loopedTemplateRender(styleLinkTemplate, cssFilesData)
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
   const compiledMetadata = (new Metadata(markdown.metadata)).build().metadata()
-  const html = pageTemplate({
-    content: converter.makeHtml(markdown.html()),
+  const content = converter.makeHtml(markdown.html())
+  const mainHtml = mainTemplate({ content })
+  const html = applicationTemplate({
+    main: mainHtml,
     styleLinks: styleLinks,
     title: markdown.metadata.title,
     metadata: compiledMetadata
