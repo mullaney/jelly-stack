@@ -19,6 +19,9 @@ const { renderStyleLinks } = require('./src/util/cssService')
 const mainHtml = fs.readFileSync( 'templates/main.html', 'utf-8' )
 const mainTemplate = Handlebars.compile(mainHtml)
 
+const headerHtml = fs.readFileSync( 'templates/header.html', 'utf-8' )
+const headerTemplate = Handlebars.compile(headerHtml)
+
 const applicationHtml = fs.readFileSync( 'templates/application.html', 'utf-8' )
 const applicationTemplate = Handlebars.compile(applicationHtml)
 const { processImagesForDistribution, replaceImageSrcInFile } = require('./src/util/imageService')
@@ -30,7 +33,9 @@ pages.forEach(file => {
   const converter = new showdown.Converter()
   const content = converter.makeHtml(markdown.html())
   const mainHtml = mainTemplate({ content })
+  console.log('headerTemplate(): ', headerTemplate());
   const html = applicationTemplate({
+    header: headerTemplate(),
     main: mainHtml,
     styleLinks: renderStyleLinks(),
     title: markdown.metadata.title,
