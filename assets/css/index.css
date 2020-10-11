@@ -10,32 +10,36 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 2rem;
+  line-height: 2.5rem;
 }
 
 h2 {
   font-size: 1.6rem;
+  line-height: 2rem;
 }
 
 h3 {
   font-size: 1.4rem;
+  line-height: 1.75rem;
 }
 
 h2 {
   font-size: 1.2rem;
+  line-height: 1.5rem;
 }
 
 h5, h6 {
   font-size: 1.1rem;
+  line-height: 1.4rem;
 }
 
 body {
   background-color: white;
-  max-width: 1192px;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0;
+  padding: 0;
 }
 
-body > * {
+main {
   max-width: 680px;
   margin-right: auto;
   margin-left: auto;
@@ -49,4 +53,53 @@ img {
   display: block;
   margin-right: auto;
   margin-left: auto;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+pre {
+  background-color: rgb(230, 230, 230);
+  padding: 0.5rem 1rem;
+}
+
+header {
+  box-shadow: 0 4px 9px -4px lightgray;
+  display: flex;
+  justify-content: center;
+}
+
+nav {
+  flex-grow: 1;
+  max-width: 1192px;
+  padding: 0 0.3rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: block;
+}
+
+nav a {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 3rem;
+  text-decoration: none;
+  padding: 0 0.3rem;
+}
+
+a.brand {
+  font-size: 1.3rem;
+  font-weight: bolder;
+  color: black;
 }

@@ -19,10 +19,17 @@ const { renderStyleLinks } = require('./src/util/cssService')
 const mainHtml = fs.readFileSync( 'templates/main.html', 'utf-8' )
 const mainTemplate = Handlebars.compile(mainHtml)
 
+const headerHtml = fs.readFileSync( 'templates/header.html', 'utf-8' )
+const headerTemplate = Handlebars.compile(headerHtml)
+
 const applicationHtml = fs.readFileSync( 'templates/application.html', 'utf-8' )
 const applicationTemplate = Handlebars.compile(applicationHtml)
 const { processImagesForDistribution, replaceImageSrcInFile } = require('./src/util/imageService')
 const imageMap = processImagesForDistribution()
+const pageNames = pages.map(page => {
+  const regex = /pages\/(.*).md$/
+  return page.match(regex)[1]
+}).filter(page => page !== 'index')
 
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
@@ -31,6 +38,7 @@ pages.forEach(file => {
   const content = converter.makeHtml(markdown.html())
   const mainHtml = mainTemplate({ content })
   const html = applicationTemplate({
+    header: headerTemplate({ pageNames }),
     main: mainHtml,
     styleLinks: renderStyleLinks(),
     title: markdown.metadata.title,
