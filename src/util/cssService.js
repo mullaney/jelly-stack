@@ -3,15 +3,15 @@ const glob = require('glob')
 const Handlebars = require('handlebars')
 const { newCssFilename } = require('./fileServices.js')
 
-const styleLinkHtml = fs.readFileSync( 'templates/style_link.html', 'utf-8' )
+const styleLinkHtml = fs.readFileSync('templates/style_link.html', 'utf-8')
 const styleLinkTemplate = Handlebars.compile(styleLinkHtml)
 const { loopedTemplateRender } = require('./templateRender.js')
 
-function renderStyleLinks() {
+function renderStyleLinks () {
   return loopedTemplateRender(styleLinkTemplate, cssFilesData())
 }
 
-function cssFilesData() {
+function cssFilesData () {
   const newCssFiles = []
   const cssFiles = glob.sync('assets/css/**/*.css')
   cssFiles.forEach(cssFile => {
@@ -29,10 +29,10 @@ function cssFilesData() {
       fs.copyFileSync(cssFile, newCssFile)
     }
   })
-  return newCssFiles.map( function(f) { return { cssFilename: f } })
+  return newCssFiles.map(function (f) { return { cssFilename: f } })
 }
 
-function rootFileName(path) {
+function rootFileName (path) {
   const pathParts = path.split('/')
   return pathParts[pathParts.length - 1].split('.css')[0]
 }

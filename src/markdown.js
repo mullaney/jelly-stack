@@ -1,24 +1,24 @@
 const fs = require('fs')
 
 class Markdown {
-  constructor(path) {
+  constructor (path) {
     this.path = path
     this._html = null
     this._metadata = {}
   }
 
-  load() {
-    const content = fs.readFileSync( this.path, 'utf-8' )
+  load () {
+    const content = fs.readFileSync(this.path, 'utf-8')
     this._metadata = getMetadata(content)
     this._html = getHtml(content)
     return this
   }
 
-  html() {
+  html () {
     return this._html
   }
 
-  get metadata() {
+  get metadata () {
     return this._metadata
   }
 }
