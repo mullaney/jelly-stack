@@ -1,8 +1,12 @@
 <header>
   <nav>
-    <a href="/" class="brand">Jelly Stack</a>
-    <ul>
-      <li><a href="/about.html">About</a></li>
-    </ul>
-  </nav>
+    <div class="navbar">
+      <a href="/" class="brand">Jelly Stack</a>
+      <ul>
+        {{#each pageNames}}
+          <li><a href="/{{ this }}.html">{{ this }}</a></li>
+        {{/each}}
+      </ul>
+  </div>
+</nav>
 </header>

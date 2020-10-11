@@ -10,22 +10,27 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 2rem;
+  line-height: 2.5rem;
 }
 
 h2 {
   font-size: 1.6rem;
+  line-height: 2rem;
 }
 
 h3 {
   font-size: 1.4rem;
+  line-height: 1.75rem;
 }
 
 h2 {
   font-size: 1.2rem;
+  line-height: 1.5rem;
 }
 
 h5, h6 {
   font-size: 1.1rem;
+  line-height: 1.4rem;
 }
 
 body {
@@ -60,19 +65,20 @@ pre {
 }
 
 header {
-  height: 3rem;
   box-shadow: 0 4px 9px -4px lightgray;
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100%;
 }
 
 nav {
-  display: flex;
-  justify-content: space-between;
   flex-grow: 1;
   max-width: 1192px;
+  padding: 0 0.3rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
 }
 
 nav ul {
@@ -89,8 +95,7 @@ nav a {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 3rem;
   text-decoration: none;
-  font-size: 1.1rem;
-  padding: 0 1rem;
+  padding: 0 0.3rem;
 }
 
 a.brand {

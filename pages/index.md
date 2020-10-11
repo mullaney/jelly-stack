@@ -14,4 +14,4 @@ What is Jelly Stack? It's a super fast way to create a website. Edit the markdow
 
 Check out the [repo on github](https://github.com/mullaney/jelly-stack).
 
-See the built site at [jelly-stack.netlify.app/](https://jelly-stack.netlify.app/).
+See the built site at [jelly-stack.netlify.app](https://jelly-stack.netlify.app).
