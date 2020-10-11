@@ -31,6 +31,9 @@ const pageNames = pages.map(page => {
   return page.match(regex)[1]
 }).filter(page => page !== 'index')
 
+const { getConfig } = require('./src/util/configService')
+const config = getConfig()
+
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
   const compiledMetadata = (new Metadata(markdown.metadata)).build().metadata()
@@ -41,7 +44,7 @@ pages.forEach(file => {
     header: headerTemplate({ pageNames }),
     main: mainHtml,
     styleLinks: renderStyleLinks(),
-    title: markdown.metadata.title,
+    title: markdown.metadata.title || config.site_name,
     metadata: compiledMetadata
   })
   const distDir = 'dist'
