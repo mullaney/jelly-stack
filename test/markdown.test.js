@@ -11,7 +11,7 @@ describe('Markdown', () => {
     it('loads metadata and markdown from file', () => {
       const md = new Markdown(samplePath)
       md.load()
-      expect(md.metadata).to.eql({ meta: "data" })
+      expect(md.metadata).to.eql({ meta: 'data' })
     })
   })
 })

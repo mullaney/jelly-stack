@@ -16,13 +16,13 @@ const Handlebars = require('handlebars')
 
 const { renderStyleLinks } = require('./src/util/cssService')
 
-const mainHtml = fs.readFileSync( 'templates/main.html', 'utf-8' )
+const mainHtml = fs.readFileSync('templates/main.html', 'utf-8')
 const mainTemplate = Handlebars.compile(mainHtml)
 
-const headerHtml = fs.readFileSync( 'templates/header.html', 'utf-8' )
+const headerHtml = fs.readFileSync('templates/header.html', 'utf-8')
 const headerTemplate = Handlebars.compile(headerHtml)
 
-const applicationHtml = fs.readFileSync( 'templates/application.html', 'utf-8' )
+const applicationHtml = fs.readFileSync('templates/application.html', 'utf-8')
 const applicationTemplate = Handlebars.compile(applicationHtml)
 const { processImagesForDistribution, replaceImageSrcInFile } = require('./src/util/imageService')
 const imageMap = processImagesForDistribution()

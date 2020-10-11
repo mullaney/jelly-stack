@@ -1,12 +1,12 @@
 const fs = require('fs')
 const glob = require('glob')
 
-function processImagesForDistribution() {
+function processImagesForDistribution () {
   const images = glob.sync('assets/images/**/*.*')
   const fileMap = {}
   images.forEach(file => {
     const regex = /assets\/images\/(.*).(png|jpg|jpeg|svg|gif)$/
-    fileMatch = file.match(regex)
+    const fileMatch = file.match(regex)
     if (fileMatch) {
       const rootName = fileMatch[1]
       const extension = fileMatch[2]
@@ -20,7 +20,7 @@ function processImagesForDistribution() {
           }
         })
         fs.copyFileSync(file, newFile)
-        console.log('file, newFile: ', file, newFile);
+        console.log('file, newFile: ', file, newFile)
       }
       const assetRegex = /assets(.*)$/
       const distRegex = /dist(.*)$/
@@ -30,7 +30,7 @@ function processImagesForDistribution() {
   return fileMap
 }
 
-function replaceImageSrcInFile(html, imageMap) {
+function replaceImageSrcInFile (html, imageMap) {
   Object.keys(imageMap).forEach(imagePath => {
     html = html.split(imagePath).join(imageMap[imagePath])
   })

@@ -3,12 +3,12 @@ const meta = Handlebars.compile('  <meta name="{{ name }}" content="{{ content }
 const ogMeta = Handlebars.compile('  <meta property="{{ property }}" content="{{ content }}">')
 
 class Metadata {
-  constructor(data = {}) {
+  constructor (data = {}) {
     this.data = data
     this._metadata = null
   }
 
-  build() {
+  build () {
     const metadata = []
     if (this.data.author) {
       metadata.push(meta({ name: 'author', content: this.data.author }))
@@ -23,11 +23,11 @@ class Metadata {
     if (this.data.title) {
       metadata.push(ogMeta({ property: 'og:title', content: this.data.title }))
     }
-    this._metadata = metadata.join("\n")
+    this._metadata = metadata.join('\n')
     return this
   }
 
-  metadata() {
+  metadata () {
     return this._metadata
   }
 }
