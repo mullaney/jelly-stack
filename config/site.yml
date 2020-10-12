@@ -1,2 +1,11 @@
 ---
+# site_name is used as the default name in the title of each page, or the base of the title for pages
 site_name: The Jelly Stack
+# default author if none is specified in metadata of a post
+author: Kevin Kelly
+# menu structure: if specific url is not shown, it is assumed that the menu will slug.html
+# (i.e.about becomes about.html)
+menu:
+  - about
+  - contact
+  - posts: /posts/index.html
