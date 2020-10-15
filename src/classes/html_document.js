@@ -1,3 +1,7 @@
+const Metadata = require('../metadata')
+const Markdown = require('../markdown')
+const showdown = require('showdown')
+
 class HtmlDocument {
   constructor (options = {}) {
     this._sourcePath = options.sourcePath || ''
@@ -11,6 +15,21 @@ class HtmlDocument {
       this._css = []
       this._scripts = []
     }
+  }
+
+  build () {
+    this.convertMarkdown()
+  }
+
+  convertMarkdown () {
+    const markdown = (new Markdown(this._sourcePath)).load()
+    this._htmlContent = (new showdown.Converter()).makeHtml(markdown.html())
+    return this
+  }
+
+  extractMetadata () {
+    this._metadata = (new Metadata(this._markdown.metadata)).build().metadata()
+    return this
   }
 }
 
