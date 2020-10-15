@@ -31,8 +31,7 @@ const pageNames = pages.map(page => {
   return page.match(regex)[1]
 }).filter(page => page !== 'index')
 
-const { getConfig } = require('./src/util/configService')
-const config = getConfig()
+const config = require('./config/config')
 
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
