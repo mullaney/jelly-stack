@@ -28,12 +28,6 @@ describe('HtmlDocument', () => {
     expect(htmlDocument._siteConfig).to.eql(sampleConfig)
   })
 
-  it('has assets which are arrays of images, css files and js files', () => {
-    expect(htmlDocument._images).to.eql(sampleAssets.images)
-    expect(htmlDocument._css).to.eql(sampleAssets.css)
-    expect(htmlDocument._scripts).to.eql(sampleAssets.scripts)
-  })
-
   it('has a getter for metadata', () => {
     expect(htmlDocument.metadata.title).to.equal('This is the title')
   })

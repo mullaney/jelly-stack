@@ -1,10 +1,11 @@
 const fs = require('fs')
 const glob = require('glob')
+const { makeDirectories } = require('./src/util/fileServices.js')
+makeDirectories(fs, ['dist', 'dist/css'])
+
 const HtmlDocument = require('./src/classes/html_document')
 
 // Make directories
-const { makeDirectories } = require('./src/util/fileServices.js')
-makeDirectories(fs, ['dist', 'dist/css', 'dist/images'])
 
 // Get a list of all files in pages dir
 const pagesDir = 'pages'
