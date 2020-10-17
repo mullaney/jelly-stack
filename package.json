@@ -4,8 +4,8 @@
   "description": "Engine to build websites from markdown",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "test:watch": "mocha -w",
+    "test": "mocha test/**/*.test.js test/*.test.js",
+    "test:watch": "mocha -w test/**/*.test.js test/*.test.js",
     "build": "node ./build.js",
     "build:watch": "nodemon build.js --ext '*'"
   },

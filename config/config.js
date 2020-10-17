@@ -1,9 +1,16 @@
 module.exports = {
   site_name: 'The Jelly Stack',
   author: 'Kevin Kelly',
-  menu: {
-    about: 'about.html',
-    constact: 'constact.html',
-    posts: 'posts/index.html'
-  }
+  menu: [
+    {
+      name: 'About',
+      url: 'about.html'
+    }, {
+      name: 'Contact',
+      url: 'contact.html'
+    }, {
+      name: 'Posts',
+      url: 'posts/index.html'
+    }
+  ]
 }

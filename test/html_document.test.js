@@ -49,4 +49,8 @@ describe('HtmlDocument', () => {
   it('has a getter for compiledMetadata', () => {
     expect(htmlDocument.compiledMetadata).to.include('This is the title')
   })
+
+  it('had a getter for template', () => {
+    expect(htmlDocument.template).to.be.instanceOf(Function)
+  })
 })

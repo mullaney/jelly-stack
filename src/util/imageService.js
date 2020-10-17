@@ -39,5 +39,6 @@ function replaceImageSrcInFile (html, imageMap) {
 
 module.exports = {
   processImagesForDistribution,
-  replaceImageSrcInFile
+  replaceImageSrcInFile,
+  imageMap: processImagesForDistribution()
 }
