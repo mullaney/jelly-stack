@@ -34,25 +34,19 @@ describe('HtmlDocument', () => {
     expect(htmlDocument._scripts).to.eql(sampleAssets.scripts)
   })
 
-  describe('build', () => {
-    it('is a method', () => {
-      expect(htmlDocument.build).to.be.instanceof(Function)
-    })
+  it('has a getter for metadata', () => {
+    expect(htmlDocument.metadata.title).to.equal('This is the title')
   })
 
-  describe('convertMarkdown', () => {
-    it('is a method', () => {
-      expect(htmlDocument.convertMarkdown).to.be.instanceof(Function)
-    })
-
-    it('assigns metadata to this._metadata', () => {
-      expect(htmlDocument.convertMarkdown()._htmlContent).to.include('</h1>')
-    })
+  it('has a getter for content', () => {
+    expect(htmlDocument.content).to.include('The first paragraph')
   })
 
-  describe('extractMetadata', () => {
-    it('is a method', () => {
-      expect(htmlDocument.extractMetadata).to.be.instanceOf(Function)
-    })
+  it('has a getter for htmlContent', () => {
+    expect(htmlDocument.htmlContent).to.include('<p>The first paragraph')
+  })
+
+  it('has a getter for compiledMetadata', () => {
+    expect(htmlDocument.compiledMetadata).to.include('This is the title')
   })
 })

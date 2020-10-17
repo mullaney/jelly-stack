@@ -35,9 +35,9 @@ const config = require('./config/config')
 
 pages.forEach(file => {
   const markdown = (new Markdown(file)).load()
-  const compiledMetadata = (new Metadata(markdown.metadata)).build().metadata()
+  const compiledMetadata = (new Metadata(markdown.metadata)).build().metadata
   const converter = new showdown.Converter()
-  const content = converter.makeHtml(markdown.html())
+  const content = converter.makeHtml(markdown.content)
   const mainHtml = mainTemplate({ content })
   const html = applicationTemplate({
     header: headerTemplate({ pageNames }),

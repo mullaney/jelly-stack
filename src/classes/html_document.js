@@ -17,19 +17,34 @@ class HtmlDocument {
     }
   }
 
-  build () {
-    this.convertMarkdown()
+  get markdown () {
+    if (this._markdown) return this._markdown
+    this._markdown = (new Markdown(this._sourcePath)).load()
+    return this._markdown
   }
 
-  convertMarkdown () {
-    const markdown = (new Markdown(this._sourcePath)).load()
-    this._htmlContent = (new showdown.Converter()).makeHtml(markdown.html())
-    return this
+  get metadata () {
+    return this.markdown.metadata
   }
 
-  extractMetadata () {
-    this._metadata = (new Metadata(this._markdown.metadata)).build().metadata()
-    return this
+  get content () {
+    return this.markdown.content
+  }
+
+  get htmlContent () {
+    return this.converter.makeHtml(this.content)
+  }
+
+  get converter () {
+    if (this._converter) return this._converter
+    this._converter = new showdown.Converter()
+    return this._converter
+  }
+
+  get compiledMetadata () {
+    if (this._compiledMetadata) return this._compiledMetadata
+    this._compiledMetadata = (new Metadata(this.metadata)).build().metadata
+    return this._compiledMetadata
   }
 }
 
