@@ -1,5 +1,7 @@
 const fs = require('fs')
 const glob = require('glob')
+const { makeDirectories } = require('./fileServices')
+makeDirectories(fs, ['dist/images'])
 
 function processImagesForDistribution () {
   const images = glob.sync('assets/images/**/*.*')
@@ -20,7 +22,6 @@ function processImagesForDistribution () {
           }
         })
         fs.copyFileSync(file, newFile)
-        console.log('file, newFile: ', file, newFile)
       }
       const assetRegex = /assets(.*)$/
       const distRegex = /dist(.*)$/
@@ -39,5 +40,6 @@ function replaceImageSrcInFile (html, imageMap) {
 
 module.exports = {
   processImagesForDistribution,
-  replaceImageSrcInFile
+  replaceImageSrcInFile,
+  imageMap: processImagesForDistribution()
 }

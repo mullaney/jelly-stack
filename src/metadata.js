@@ -27,7 +27,7 @@ class Metadata {
     return this
   }
 
-  metadata () {
+  get metadata () {
     return this._metadata
   }
 }

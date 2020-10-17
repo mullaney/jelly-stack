@@ -3,8 +3,8 @@
     <div class="navbar">
       <a href="/" class="brand">Jelly Stack</a>
       <ul>
-        {{#each pageNames}}
-          <li><a href="/{{ this }}.html">{{ this }}</a></li>
+        {{#each menu}}
+          <li><a href="/{{ this.url }}">{{ this.name }}</a></li>
         {{/each}}
       </ul>
   </div>

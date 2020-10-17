@@ -1,5 +1,5 @@
 <!--
-  "meta": "data"
+  "title": "This is the title"
 -->
 
 # The title
