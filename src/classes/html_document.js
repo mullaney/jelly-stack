@@ -15,14 +15,16 @@ class HtmlDocument {
 
   get html () {
     if (this._html) return this._html
-    const mainHtml = this.template({ content: this.htmlContent })
-    this._html = templates.application({
+    const mainHtml = this.template({ content: this.htmlContent, ...this.metadata })
+    const options = {
       header: templates.header({ menu: this.menu }),
+      title: this.metadata.title || this._siteConfig.site_name,
       main: mainHtml,
       styleLinks: renderStyleLinks(),
-      title: this.metadata.title || this._siteConfig.site_name,
       metadata: this.compiledMetadata
-    })
+    }
+
+    this._html = templates.application(options)
     return this._html
   }
 
@@ -37,22 +39,29 @@ class HtmlDocument {
   }
 
   save () {
-    fs.writeFileSync(`dist/${newFilename(this._sourcePath)}`, this.htmlWithImages)
+    let dir = 'dist/'
+    if (this.templateName === 'posts') dir += 'posts/'
+    fs.writeFileSync(`${dir}/${newFilename(this._sourcePath)}`, this.htmlWithImages)
     return this
   }
 
   get template () {
     if (this._template) return this._template
 
-    const regex = /^(.*)\//
-    const templateName = this._sourcePath.match(regex)[1]
-    if (templateName && templates[templateName]) {
-      this._template = templates[templateName]
+    if (this.templateName && templates[this.templateName]) {
+      this._template = templates[this.templateName]
     } else {
       this._template = templates.default
     }
 
     return this._template
+  }
+
+  get templateName () {
+    if (this._templateName) return this._templateName
+    const regex = /^(.*)\//
+    this._templateName = this._sourcePath.match(regex)[1]
+    return this._templateName
   }
 
   get markdown () {

@@ -18,7 +18,7 @@ function cssFilesData () {
     const newCssFile = `dist/css/${newCssFilename(fs, cssFile)}`
     const oldVersions = glob.sync('dist/css/' + rootFileName(cssFile) + '.*.css')
 
-    newCssFiles.push(`css/${newCssFilename(fs, cssFile)}`)
+    newCssFiles.push(`/css/${newCssFilename(fs, cssFile)}`)
 
     if (!fs.existsSync(newCssFile)) {
       oldVersions.forEach(version => {

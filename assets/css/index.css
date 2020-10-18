@@ -5,7 +5,8 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-block-end: 0.4rem;
 }
 
 h1 {
@@ -43,6 +44,7 @@ main {
   max-width: 680px;
   margin-right: auto;
   margin-left: auto;
+  margin-top: 2rem;
 }
 
 img {
