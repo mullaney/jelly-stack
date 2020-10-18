@@ -1,9 +1,9 @@
 const fs = require('fs')
 const glob = require('glob')
 const Handlebars = require('handlebars')
-const { newCssFilename } = require('./fileServices.js')
+const { newAssetFilename } = require('./fileServices.js')
 
-const styleLinkHtml = fs.readFileSync('templates/style_link.html', 'utf-8')
+const styleLinkHtml = '<link rel="stylesheet" href="{{ cssFilename }}">'
 const styleLinkTemplate = Handlebars.compile(styleLinkHtml)
 const { loopedTemplateRender } = require('./templateRender.js')
 
@@ -15,10 +15,10 @@ function cssFilesData () {
   const newCssFiles = []
   const cssFiles = glob.sync('assets/css/**/*.css')
   cssFiles.forEach(cssFile => {
-    const newCssFile = `dist/css/${newCssFilename(fs, cssFile)}`
+    const newCssFile = `dist/css/${newAssetFilename(fs, cssFile)}`
     const oldVersions = glob.sync('dist/css/' + rootFileName(cssFile) + '.*.css')
 
-    newCssFiles.push(`/css/${newCssFilename(fs, cssFile)}`)
+    newCssFiles.push(`/css/${newAssetFilename(fs, cssFile)}`)
 
     if (!fs.existsSync(newCssFile)) {
       oldVersions.forEach(version => {

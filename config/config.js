@@ -10,7 +10,7 @@ module.exports = {
       url: 'contact.html'
     }, {
       name: 'Posts',
-      url: 'posts/index.html'
+      url: 'posts.html'
     }
   ]
 }

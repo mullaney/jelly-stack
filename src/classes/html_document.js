@@ -28,6 +28,19 @@ class HtmlDocument {
     return this._html
   }
 
+  get dataPoints () {
+    if (this._dataPoints) return this._dataPoints
+    const stats = fs.statSync(this._sourcePath)
+    this._dataPoints = {
+      ...this.metadata,
+      url: this.url,
+      type: this.templateName,
+      created_at: stats.birthtime,
+      updated_at: stats.mtime
+    }
+    return this._dataPoints
+  }
+
   get menu () {
     return this._siteConfig.menu || []
   }
@@ -38,10 +51,16 @@ class HtmlDocument {
     return this._htmlWithImages
   }
 
-  save () {
+  get url () {
+    if (this._url) return this._url
     let dir = 'dist/'
     if (this.templateName === 'posts') dir += 'posts/'
-    fs.writeFileSync(`${dir}/${newFilename(this._sourcePath)}`, this.htmlWithImages)
+    this._url = `${dir}/${newFilename(this._sourcePath)}`
+    return this._url
+  }
+
+  save () {
+    fs.writeFileSync(this.url, this.htmlWithImages)
     return this
   }
 

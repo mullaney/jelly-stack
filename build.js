@@ -1,7 +1,7 @@
 const fs = require('fs')
 const glob = require('glob')
 const { makeDirectories } = require('./src/util/fileServices.js')
-makeDirectories(fs, ['dist', 'dist/css', 'dist/posts'])
+makeDirectories(fs, ['dist', 'dist/css', 'dist/posts', 'dist/data'])
 
 const HtmlDocument = require('./src/classes/html_document')
 
@@ -13,9 +13,15 @@ const pages = [
 
 const siteConfig = require('./config/config')
 
-pages.forEach(file => {
-  new HtmlDocument({
-    sourcePath: file,
+const documents = pages.map(path => {
+  return new HtmlDocument({
+    sourcePath: path,
     siteConfig
   }).save()
 })
+
+const docData = documents.map(document => {
+  return document.dataPoints
+})
+
+fs.writeFileSync('dist/data/documents.json', JSON.stringify(docData))

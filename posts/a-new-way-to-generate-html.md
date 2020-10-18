@@ -6,7 +6,7 @@
   "published": "October 16, 2020"
 -->
 
-Over the years I've made a lot of websites, some with complicated backends with APIs, others using off the shelf php software like Wordpress and still others that just consist of simple HTML and CSS. One draw back of using libraries and complicated backends for sites is that the code has to be maintained and sometimes upgraded over the years. You might go months or even years before returning to a code base.
+Over the years I've made a lot of websites, some with complicated backends with APIs, others using off the shelf php software like Wordpress and still others that just consist of simple HTML and CSS. One drawback of using libraries and complicated backends for sites is that the code has to be maintained and sometimes upgraded over the years. You might go months or even years before returning to a code base.
 
 One site I created back in 2000 was [cage-match.com](http://cage-match.com/). The site was made with php, without the benefit of any real framework. I built my own template engine based on the kinds of things I had seen with php message boards or Word Press. I put a lot of effort into the site, but at a certain point, it was **done**. It did everything I needed it to, and I gave it over to an admin who maintained the site by adding regular content. It worked wonderfully, until it didn't.
 
