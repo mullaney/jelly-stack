@@ -3,7 +3,7 @@ const Metadata = require('../metadata')
 const Markdown = require('../markdown')
 const showdown = require('showdown')
 const templates = require('../util/templates')
-const { renderStyleLinks } = require('../util/cssService')
+const { renderStyleLinks } = require('../util/assetsService')
 const { newFilename } = require('../util/fileServices')
 const { replaceImageSrcInFile, imageMap } = require('../util/imageService')
 
