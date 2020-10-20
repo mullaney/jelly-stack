@@ -1,0 +1,9 @@
+<main>
+  {{#each posts}}
+    <article>
+      <h1>{{this.title}}</h1>
+      <div class="posts__byline"><span class="posts__author">{{this.author}}</span>, published on {{this.published}}</div>
+      {{{this.summary}}}
+    </article>
+  {{/each}}
+</main>

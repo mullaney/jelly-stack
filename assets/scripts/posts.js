@@ -1,2 +1,5 @@
-const postsAppId = document.getElementById('posts-app')
-console.log('postsAppId: ', postsAppId)
+(function getData () {
+  return fetch('/data/documents.json')
+    .then(response => response.json())
+    .then(json => console.log(json))
+})()

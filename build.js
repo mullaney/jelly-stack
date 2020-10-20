@@ -1,7 +1,8 @@
 const fs = require('fs')
 const glob = require('glob')
 const { makeDirectories } = require('./src/util/fileServices.js')
-makeDirectories(fs, ['dist', 'dist/css', 'dist/posts', 'dist/data'])
+const templates = require('./src/util/templates')
+makeDirectories(fs, ['dist', 'dist/css', 'dist/posts', 'dist/data', 'dist/images'])
 
 const HtmlDocument = require('./src/classes/html_document')
 
@@ -20,8 +21,18 @@ const documents = pages.map(path => {
   }).save()
 })
 
-const docData = documents.map(document => {
+const docsData = documents.map(document => {
   return document.dataPoints
 })
 
-fs.writeFileSync('dist/data/documents.json', JSON.stringify(docData))
+fs.writeFileSync('dist/data/documents.json', JSON.stringify({ data: docsData }))
+
+const postsData = docsData.filter(page => page.type === 'posts')
+
+const mainHtml = templates.posts_index({ posts: postsData })
+new HtmlDocument({
+  mainHtml,
+  siteConfig,
+  url: 'dist/posts/index.html',
+  metadata: {}
+}).save()

@@ -3,12 +3,20 @@ const glob = require('glob')
 const Handlebars = require('handlebars')
 const { newAssetFilename } = require('./fileServices.js')
 
-const styleLinkHtml = '<link rel="stylesheet" href="{{ cssFilename }}">'
+const styleLinkHtml = '<link rel="stylesheet" href="{{ filename }}" />'
 const styleLinkTemplate = Handlebars.compile(styleLinkHtml)
+
+const scriptTagHtml = '<script src="{{ filename }}"></script>'
+const scriptTagTemplate = Handlebars.compile(scriptTagHtml)
+
 const { loopedTemplateRender } = require('./templateRender.js')
 
 function renderStyleLinks () {
   return loopedTemplateRender(styleLinkTemplate, cssFilesData())
+}
+
+function renderJsTags () {
+  return loopedTemplateRender(scriptTagTemplate, jsFilesData())
 }
 
 function cssFilesData () {
@@ -29,7 +37,28 @@ function cssFilesData () {
       fs.copyFileSync(cssFile, newCssFile)
     }
   })
-  return newCssFiles.map(function (f) { return { cssFilename: f } })
+  return newCssFiles.map(function (f) { return { filename: f } })
+}
+
+function jsFilesData () {
+  const newJsFiles = []
+  const jsFiles = glob.sync('assets/scripts/**/*.js')
+  jsFiles.forEach(jsFile => {
+    const newJsFile = `dist/css/${newAssetFilename(fs, jsFile)}`
+    const oldVersions = glob.sync('dist/js/' + rootFileName(jsFile) + '.*.js')
+
+    newJsFiles.push(`/css/${newAssetFilename(fs, jsFile)}`)
+
+    if (!fs.existsSync(newJsFile)) {
+      oldVersions.forEach(version => {
+        if (newJsFile !== version) {
+          fs.unlinkSync(version)
+        }
+      })
+      fs.copyFileSync(jsFile, newJsFile)
+    }
+  })
+  return newJsFiles.map(function (f) { return { filename: f } })
 }
 
 function rootFileName (path) {
@@ -38,5 +67,5 @@ function rootFileName (path) {
 }
 
 module.exports = {
-  renderStyleLinks
+  renderStyleLinks, renderJsTags
 }
