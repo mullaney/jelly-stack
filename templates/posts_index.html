@@ -1,8 +1,17 @@
 <main>
   {{#each posts}}
     <article>
-      <h1><a href="{{this.url}}">{{this.title}}</a></h1>
-      <div class="posts__byline"><span class="posts__author">{{this.author}}</span>, published on {{this.published}}</div>
+      {{#if this.title}}
+      <h2>
+        <a href="{{this.url}}">
+          {{this.title}}
+        </a>
+      </h2>
+      {{/if}}
+      <div class="posts__author">{{this.author}}</div>
+      {{#if this.published_at}}
+        Published on {{this.published_at}}</div>
+      {{/if}}
       {{{this.summary}}}
       [ <a href="{{this.url}}">more</a> ]
     </article>

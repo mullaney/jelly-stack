@@ -1,5 +1,14 @@
 <main>
-  <h1>{{title}}</h1>
-  <div class="posts__byline"><span class="posts__author">{{author}}</span>, published on {{published}}</div>
-  {{{ content }}}
+  <article>
+    {{#if title}}
+    <h1>
+      {{title}}
+    </h1>
+    {{/if}}
+    <div class="posts__author">{{author}}</div>
+    {{#if published}}
+      Published on {{published}}</div>
+    {{/if}}
+    {{{ content }}}
+  </article>
 </main>

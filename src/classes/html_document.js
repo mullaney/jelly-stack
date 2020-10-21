@@ -47,7 +47,8 @@ class HtmlDocument {
       created_at: stats.birthtime,
       updated_at: stats.mtime,
       image_url: this.imageUrl,
-      summary: this.summary
+      summary: this.summary,
+      published_at: new Date(this.metadata.published || stats.birthtime).toLocaleDateString()
     }
     return this._dataPoints
   }
