@@ -1,9 +1,10 @@
 <main>
   {{#each posts}}
     <article>
-      <h1>{{this.title}}</h1>
+      <h1><a href="{{this.url}}">{{this.title}}</a></h1>
       <div class="posts__byline"><span class="posts__author">{{this.author}}</span>, published on {{this.published}}</div>
       {{{this.summary}}}
+      [ <a href="{{this.url}}">more</a> ]
     </article>
   {{/each}}
 </main>

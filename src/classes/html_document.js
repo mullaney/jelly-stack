@@ -54,6 +54,7 @@ class HtmlDocument {
 
   get imageUrl () {
     return this.cachedGetter('_imageUrl', () => {
+      if (!this.metadata.image) return null
       return replaceImageSrcInFile(`/${this.metadata.image}`, imageMap)
     })
   }
@@ -63,7 +64,7 @@ class HtmlDocument {
     if (this.metadata.summary) {
       this._summary = this.metadata.summary
     } else {
-      const truncated = truncate(this.content)
+      const truncated = truncate(this.content) + '...'
       this._summary = this.converter.makeHtml(truncated)
     }
     return this._summary
@@ -83,12 +84,12 @@ class HtmlDocument {
     if (this._url) return this._url
     let dir = 'dist/'
     if (this.templateName === 'posts') dir += 'posts/'
-    this._url = `${dir}/${newFilename(this._sourcePath)}`
+    this._url = `${dir}${newFilename(this._sourcePath)}`
     return this._url
   }
 
   get targetUrl () {
-    return this.url.slice(5)
+    return `/${this.url.slice(5)}`
   }
 
   save () {
