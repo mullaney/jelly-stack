@@ -1,0 +1,19 @@
+<main>
+  {{#each posts}}
+    <article>
+      {{#if this.title}}
+      <h2>
+        <a href="{{this.url}}">
+          {{this.title}}
+        </a>
+      </h2>
+      {{/if}}
+      <div class="posts__author">{{this.author}}</div>
+      {{#if this.publishedAt}}
+        Published on {{this.publishedAt}}</div>
+      {{/if}}
+      {{{this.summary}}}
+      [ <a href="{{this.url}}">more</a> ]
+    </article>
+  {{/each}}
+</main>

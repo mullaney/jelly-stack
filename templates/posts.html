@@ -1,0 +1,14 @@
+<main>
+  <article>
+    {{#if title}}
+    <h1>
+      {{title}}
+    </h1>
+    {{/if}}
+    <div class="posts__author">{{author}}</div>
+    {{#if publishedAt}}
+      Published on {{publishedAt}}</div>
+    {{/if}}
+    {{{ content }}}
+  </article>
+</main>

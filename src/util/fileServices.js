@@ -12,7 +12,7 @@ function newFilename (file) {
   return fileName + '.html'
 }
 
-function newCssFilename (fs, file) {
+function newAssetFilename (fs, file) {
   const pathParts = file.split('/')
   const fileNameParts = pathParts[pathParts.length - 1].split('.')
   const timestamp = String(fs.statSync(file).mtimeMs).split('.')[0]
@@ -20,5 +20,5 @@ function newCssFilename (fs, file) {
 }
 
 module.exports = {
-  makeDirectories, newFilename, newCssFilename
+  makeDirectories, newFilename, newAssetFilename
 }

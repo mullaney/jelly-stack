@@ -1,21 +1,41 @@
 const fs = require('fs')
 const glob = require('glob')
 const { makeDirectories } = require('./src/util/fileServices.js')
-makeDirectories(fs, ['dist', 'dist/css'])
+const templates = require('./src/util/templates')
+const { sortBy, reverse } = require('lodash')
+makeDirectories(fs, ['dist', 'dist/css', 'dist/posts', 'dist/data', 'dist/images'])
 
 const HtmlDocument = require('./src/classes/html_document')
 
-// Make directories
-
 // Get a list of all files in pages dir
-const pagesDir = 'pages'
-const pages = glob.sync(pagesDir + '/**/*.md')
+const pages = [
+  ...glob.sync('pages/**/*.md'),
+  ...glob.sync('posts/**/*.md')
+]
 
 const siteConfig = require('./config/config')
 
-pages.forEach(file => {
-  new HtmlDocument({
-    sourcePath: file,
+const documents = pages.map(path => {
+  return new HtmlDocument({
+    sourcePath: path,
     siteConfig
   }).save()
 })
+
+const docsData = documents.map(document => {
+  return document.dataPoints
+})
+
+fs.writeFileSync('dist/data/documents.json', JSON.stringify({ data: docsData }))
+
+const postsData = reverse(
+  sortBy(docsData.filter(page => page.type === 'posts'), 'publishedAt')
+)
+
+const mainHtml = templates.posts_index({ posts: postsData })
+new HtmlDocument({
+  mainHtml,
+  siteConfig,
+  url: 'dist/posts/index.html',
+  metadata: {}
+}).save()

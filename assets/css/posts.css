@@ -1,0 +1,9 @@
+/* <div class="posts__byline"><span class="posts__author">{{author}}</span>, published on {{published}}</div> */
+.posts__byline, .posts__author {
+  font-size: 0.9rem;
+  line-height: 1rem;
+}
+
+.posts__author {
+  font-weight: 700;
+}
