@@ -1,11 +1,10 @@
 <!--
   "title": "Just some lorem!",
-  "author": "Kevin Kelly",
   "description": "Here is the latest",
   "image": "https://picsum.photos/500/300"
 -->
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at risus nec odio congue dapibus. Aenean diam purus, iaculis vestibulum nunc in, rutrum fermentum urna.
+Hello! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at risus nec odio congue dapibus. Aenean diam purus, iaculis vestibulum nunc in, rutrum fermentum urna.
 
 ![random image](https://picsum.photos/500/300)
 

@@ -26,29 +26,45 @@ class HtmlDocument {
       jsTags: renderJsTags(),
       metadata: this.compiledMetadata
     }
-
     this._html = templates.application(options)
     return this._html
   }
 
+  get publishedAt () {
+    return this.cachedGetter('_publishedAt', () => {
+      const dateTime = new Date(this.metadata.published || this.stats.mtime)
+      return `${dateTime.toLocaleString()}`
+    })
+  }
+
+  get stats () {
+    return this.cachedGetter('_stats', () => {
+      if (!this._sourcePath) return {}
+      return fs.statSync(this._sourcePath)
+    })
+  }
+
   get mainHtml () {
-    if (this._mainHtml) return this._mainHtml
-    this._mainHtml = this.template({ content: this.htmlContent, ...this.metadata })
-    return this._mainHtml
+    return this.cachedGetter('_mainHtml', () => {
+      return this.template({
+        content: this.htmlContent,
+        ...this.metadata,
+        publishedAt: this.publishedAt
+      })
+    })
   }
 
   get dataPoints () {
     if (this._dataPoints) return this._dataPoints
-    const stats = fs.statSync(this._sourcePath)
     this._dataPoints = {
       ...this.metadata,
       url: this.targetUrl,
       type: this.templateName,
-      created_at: stats.birthtime,
-      updated_at: stats.mtime,
+      created_at: this.stats.birthtime,
+      updated_at: this.stats.mtime,
       image_url: this.imageUrl,
       summary: this.summary,
-      published_at: new Date(this.metadata.published || stats.birthtime).toLocaleDateString()
+      publishedAt: this.publishedAt
     }
     return this._dataPoints
   }
@@ -116,6 +132,10 @@ class HtmlDocument {
     })
   }
 
+  get siteConfig () {
+    return this._siteConfig
+  }
+
   get markdown () {
     return this.cachedGetter('_markdown', () => {
       return (new Markdown(this._sourcePath)).load()
@@ -124,7 +144,10 @@ class HtmlDocument {
 
   get metadata () {
     return this.cachedGetter('_metadata', () => {
-      return this.markdown.metadata
+      return {
+        author: this.siteConfig.author,
+        ...this.markdown.metadata
+      }
     })
   }
 

@@ -1,6 +1,6 @@
 module.exports = {
   site_name: 'The Jelly Stack',
-  author: 'Kevin Kelly',
+  author: 'Default Author',
   menu: [
     {
       name: 'About',

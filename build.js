@@ -29,7 +29,7 @@ const docsData = documents.map(document => {
 fs.writeFileSync('dist/data/documents.json', JSON.stringify({ data: docsData }))
 
 const postsData = reverse(
-  sortBy(docsData.filter(page => page.type === 'posts'), 'published_at')
+  sortBy(docsData.filter(page => page.type === 'posts'), 'publishedAt')
 )
 
 const mainHtml = templates.posts_index({ posts: postsData })
