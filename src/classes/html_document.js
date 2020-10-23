@@ -3,7 +3,7 @@ const Metadata = require('../metadata')
 const Markdown = require('../markdown')
 const showdown = require('showdown')
 const templates = require('../util/templates')
-const { renderStyleLinks, renderJsTags } = require('../util/assetsService')
+const { renderedAssets } = require('../util/assetsService')
 const { newFilename } = require('../util/fileServices')
 const { replaceImageSrcInFile, imageMap } = require('../util/imageService')
 
@@ -22,8 +22,8 @@ class HtmlDocument {
       header: templates.header({ menu: this.menu }),
       title: this.metadata.title || this._siteConfig.site_name,
       main: this.mainHtml,
-      styleLinks: renderStyleLinks(),
-      jsTags: renderJsTags(),
+      styleLinks: renderedAssets.css,
+      jsTags: renderedAssets.js,
       metadata: this.compiledMetadata
     }
     this._html = templates.application(options)

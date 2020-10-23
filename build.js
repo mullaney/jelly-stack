@@ -3,7 +3,14 @@ const glob = require('glob')
 const { makeDirectories } = require('./src/util/fileServices.js')
 const templates = require('./src/util/templates')
 const { sortBy, reverse } = require('lodash')
-makeDirectories(fs, ['dist', 'dist/css', 'dist/posts', 'dist/data', 'dist/images'])
+makeDirectories(fs, [
+  'dist',
+  'dist/css',
+  'dist/posts',
+  'dist/data',
+  'dist/images',
+  'dist/js'
+])
 
 const HtmlDocument = require('./src/classes/html_document')
 
