@@ -12,5 +12,6 @@ module.exports = {
       name: 'Posts',
       url: 'posts/index.html'
     }
-  ]
+  ],
+  posts_per_page: 5
 }

@@ -16,4 +16,14 @@
       [ <a href="{{this.url}}">more</a> ]
     </article>
   {{/each}}
+  {{#if showPrev}}
+    <a href="{{prevUrl}}">
+      <button>Previous</button>
+    </a>
+  {{/if}}
+  {{#if showNext}}
+    <a href="{{nextUrl}}">
+      <button>Next</button>
+    </a>
+  {{/if}}
 </main>

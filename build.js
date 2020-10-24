@@ -39,10 +39,24 @@ const postsData = reverse(
   sortBy(docsData.filter(page => page.type === 'posts'), 'publishedMs')
 )
 
-const mainHtml = templates.posts_index({ posts: postsData })
-new HtmlDocument({
-  mainHtml,
-  siteConfig,
-  url: 'dist/posts/index.html',
-  metadata: {}
-}).save()
+const numIndexPages = Math.ceil(postsData.length / siteConfig.posts_per_page)
+
+for (let i = 0; i < numIndexPages; i++) {
+  const mainHtml = templates.posts_index({
+    pageNum: i,
+    totalPages: numIndexPages,
+    paginate: (numIndexPages > 1),
+    showNext: (i < numIndexPages - 1),
+    nextUrl: `/posts/index${i + 1}.html`,
+    showPrev: (i > 0),
+    prevUrl: `/posts/index${(i > 1) ? (i - 1) : ''}.html`,
+    posts: postsData.slice(i * siteConfig.posts_per_page, (i + 1) * siteConfig.posts_per_page)
+  })
+
+  new HtmlDocument({
+    mainHtml,
+    siteConfig,
+    url: `dist/posts/index${i > 0 ? i : ''}.html`,
+    metadata: {}
+  }).save()
+}

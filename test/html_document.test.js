@@ -41,7 +41,6 @@ describe('HtmlDocument', () => {
   })
 
   it('has a getter for compiledMetadata', () => {
-    console.log('htmlDocument.compiledMetadata: ', htmlDocument.compiledMetadata)
     expect(htmlDocument.compiledMetadata).to.include('This is the title')
   })
 
