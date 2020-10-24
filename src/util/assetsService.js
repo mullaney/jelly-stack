@@ -64,7 +64,7 @@ class AssetBuilder {
   }
 
   get fileData () {
-    return this.targetFiles.map(function (f) { return { filename: f.slice(5) } })
+    return this.targetFiles.map(function (f) { return { filename: f.slice(4) } })
   }
 
   get rendered () {
