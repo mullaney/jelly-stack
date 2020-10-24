@@ -1,6 +1,6 @@
 # Jelly Stack - Markdown to HTML
 
-![Jelly](https://raw.githubusercontent.com/mullaney/jelly-stack/main/assets/images/jelly.png)
+![Jelly](https://raw.githubusercontent.com/mullaney/jelly-stack/main/assets/images/jelly-sml.png)
 
 # The Jelly Stack
 
