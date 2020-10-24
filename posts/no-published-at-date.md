@@ -7,7 +7,7 @@
 
 Hello! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at risus nec odio congue dapibus. Aenean diam purus, iaculis vestibulum nunc in, rutrum fermentum urna.
 
-![random image](https://picsum.photos/500/300)
+![landscape](/images/landscape.jpeg)
 
 Fusce iaculis, ipsum vitae facilisis facilisis, tellus tortor fringilla massa, ut tincidunt odio augue quis nulla. Cras auctor sollicitudin neque, a vulputate felis pellentesque vitae. Curabitur scelerisque tincidunt ante at tempor. Proin ac scelerisque turpis, vel efficitur erat. Sed scelerisque a lacus non scelerisque. Integer non lectus a neque posuere volutpat id eu dolor. Curabitur dictum facilisis ligula, laoreet fringilla ante vestibulum vel. Donec in interdum felis, quis hendrerit magna. Phasellus gravida, mi quis auctor condimentum, metus quam scelerisque quam, ac gravida justo enim nec risus. Vivamus sit amet elit non dolor mollis laoreet ut vitae orci.
 
