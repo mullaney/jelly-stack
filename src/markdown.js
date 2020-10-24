@@ -30,8 +30,14 @@ const parseMetadata = (content) => {
   if (beginMetadata === -1 || endMetadata === -1) {
     return { title: null }
   }
-  const json = `{${lines.slice(beginMetadata + 1, endMetadata).join(' ')}}`
-  return JSON.parse(json)
+  const metadataText = lines.slice(beginMetadata + 1, endMetadata)
+  let json
+  try {
+    json = JSON.parse(`{${metadataText.join(' ')}}`)
+  } catch (err) {
+    throw new Error('Could not parse this metadata: \n' + metadataText.join(' ') + '\n\nPlease check carefully for trailing commas and proper use of quotation marks.\n')
+  }
+  return json
 }
 
 const parseContent = (content) => {
