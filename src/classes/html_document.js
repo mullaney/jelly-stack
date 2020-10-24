@@ -32,11 +32,21 @@ class HtmlDocument {
   }
 
   get publishedAt () {
-    const publishedAt = chrono.parseDate(this.metadata.published)
-    if (!publishedAt && this.templateName === 'posts') {
-      throw new Error('Posts must have a valid value for "published" in the metadata portion of the markdown file.')
-    }
-    return new Date(publishedAt).toLocaleString()
+    return this.publishedDate.toLocaleString()
+  }
+
+  get publishedMs () {
+    return this.publishedDate.getTime()
+  }
+
+  get publishedDate () {
+    return this.cachedGetter('_publishedDate', () => {
+      const datetime = chrono.parseDate(this.metadata.published)
+      if (!datetime && this.templateName === 'posts') {
+        throw new Error('Posts must have a valid value for "published" in the metadata portion of the markdown file.')
+      }
+      return new Date(datetime)
+    })
   }
 
   get stats () {
@@ -66,7 +76,8 @@ class HtmlDocument {
       updated_at: this.stats.mtime,
       image_url: this.imageUrl,
       summary: this.summary,
-      publishedAt: this.publishedAt
+      publishedAt: this.publishedAt,
+      publishedMs: this.publishedMs
     }
     return this._dataPoints
   }
