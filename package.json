@@ -12,6 +12,7 @@
   "author": "Kevin Kelly",
   "license": "ISC",
   "dependencies": {
+    "chrono-node": "^2.1.8",
     "glob": "^7.1.6",
     "handlebars": "^4.7.6",
     "lodash": "^4.17.20",

@@ -1,7 +1,8 @@
 <!--
   "title": "Just some lorem!",
   "description": "Here is the latest",
-  "image": "https://picsum.photos/500/300"
+  "image": "https://picsum.photos/500/300",
+  "published": "Nov 2, 2019 7:15pm"
 -->
 
 Hello! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at risus nec odio congue dapibus. Aenean diam purus, iaculis vestibulum nunc in, rutrum fermentum urna.

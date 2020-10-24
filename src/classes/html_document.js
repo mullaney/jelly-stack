@@ -3,6 +3,7 @@ const Metadata = require('../metadata')
 const Markdown = require('../markdown')
 const showdown = require('showdown')
 const templates = require('../util/templates')
+const chrono = require('chrono-node')
 const { renderedAssets } = require('../util/assetsService')
 const { newFilename } = require('../util/fileServices')
 const { replaceImageSrcInFile, imageMap } = require('../util/imageService')
@@ -31,10 +32,11 @@ class HtmlDocument {
   }
 
   get publishedAt () {
-    return this.cachedGetter('_publishedAt', () => {
-      const dateTime = new Date(this.metadata.published || this.stats.mtime)
-      return `${dateTime.toLocaleString()}`
-    })
+    const publishedAt = chrono.parseDate(this.metadata.published)
+    if (!publishedAt && this.templateName === 'posts') {
+      throw new Error('Posts must have a valid value for "published" in the metadata portion of the markdown file.')
+    }
+    return new Date(publishedAt).toLocaleString()
   }
 
   get stats () {

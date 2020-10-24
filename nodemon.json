@@ -1,3 +1,11 @@
 {
-  "watch": ["assets", "pages", "build.js", "src", "templates", "config"]
+  "watch": [
+    "assets",
+    "pages",
+    "build.js",
+    "src",
+    "templates",
+    "config",
+    "posts"
+  ]
 }
