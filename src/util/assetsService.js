@@ -6,46 +6,75 @@ const { loopedTemplateRender } = require('./templateRender.js')
 
 const assetTypes = [
   {
-    type: 'css',
+    extension: 'css',
     template: Handlebars.compile('<link rel="stylesheet" href="{{ filename }}" />')
   },
   {
-    type: 'js',
+    extension: 'js',
     template: Handlebars.compile('<script src="{{ filename }}"></script>')
   }
 ]
 
-const renderedAssets = assetTypes.reduce((acc, assetType) => {
-  acc[assetType.type] = loopedTemplateRender(assetType.template, fileData(assetType.type))
-  return acc
-}, {})
+class AssetBuilder {
+  constructor (extension, template) {
+    this._extension = extension
+    this._template = template
+  }
 
-function fileData (extension) {
-  const newFiles = []
-  const files = glob.sync(`assets/${extension}/**/*.${extension}`)
-  files.forEach(file => {
-    const newFile = `dist/${extension}/${newAssetFilename(fs, file)}`
-    const oldVersions = glob.sync(`dist/${extension}/${rootFileName(file)}.*.${extension}`)
-
-    newFiles.push(`/${extension}/${newAssetFilename(fs, file)}`)
-
-    if (!fs.existsSync(newFile)) {
-      oldVersions.forEach(version => {
-        if (newFile !== version) {
-          fs.unlinkSync(version)
+  build () {
+    this.targetFiles.forEach((targetFile, i) => {
+      if (!fs.existsSync(targetFile)) {
+        try {
+          this.removeOldVersions(targetFile, this.sourceFiles[i])
+        } catch (err) {
+          throw new Error('Could not remove old versions of files: ' + err)
         }
-      })
-      fs.copyFileSync(file, newFile)
-    }
-  })
-  return newFiles.map(function (f) { return { filename: f } })
-}
 
-function rootFileName (path, extension) {
-  const pathParts = path.split('/')
-  return pathParts[pathParts.length - 1].split('.' + extension)[0]
+        try {
+          fs.copyFileSync(this.sourceFiles[i], targetFile)
+        } catch (err) {
+          throw new Error('Could copy source file: ' + err)
+        }
+      }
+    })
+    return this
+  }
+
+  removeOldVersions (targetFile, sourceFile) {
+    glob.sync(`dist/${this._extension}/${this.rootFileName(sourceFile)}.*.${this._extension}`).forEach(version => {
+      if (targetFile !== version) {
+        fs.unlinkSync(version)
+      }
+    })
+  }
+
+  rootFileName (path) {
+    const pathParts = path.split('/')
+    return pathParts[pathParts.length - 1].split('.' + this._extension)[0]
+  }
+
+  get sourceFiles () {
+    return glob.sync(`assets/${this._extension}/**/*.${this._extension}`)
+  }
+
+  get targetFiles () {
+    return this.sourceFiles.map(file => {
+      return `dist/${this._extension}/${newAssetFilename(fs, file)}`
+    })
+  }
+
+  get fileData () {
+    return this.targetFiles.map(function (f) { return { filename: f.slice(5) } })
+  }
+
+  get rendered () {
+    return loopedTemplateRender(this._template, this.fileData)
+  }
 }
 
 module.exports = {
-  renderedAssets
+  renderedAssets: assetTypes.reduce((acc, type) => {
+    acc[type.extension] = new AssetBuilder(type.extension, type.template).build().rendered
+    return acc
+  }, {})
 }
