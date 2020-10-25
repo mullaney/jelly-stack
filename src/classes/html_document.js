@@ -20,7 +20,7 @@ class HtmlDocument {
   get html () {
     if (this._html) return this._html
     const options = {
-      header: templates.header({ menu: this.menu }),
+      header: templates.header({ site_name: this._siteConfig.site_name, menu: this.menu }),
       title: this.metadata.title || this._siteConfig.site_name,
       main: this.mainHtml,
       styleLinks: renderedAssets.css,
