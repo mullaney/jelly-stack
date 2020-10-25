@@ -2,7 +2,7 @@
   "title": "A New Way to Generate HTML",
   "author": "Kevin Kelly",
   "description": "Why Jelly Stack? Some reasons why I made it and why you might want to use it",
-  "image": "images/jelly-sml.png",
+  "image": "https://jelly-stack.netlify.app/images/jelly-sml.1603593891077.png",
   "published": "October 16, 2020"
 -->
 
