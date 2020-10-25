@@ -6,4 +6,22 @@
   body main, img {
     max-width: 90vw;
   }
- }
+
+  .navbar {
+    display: block;
+  }
+
+  nav a {
+    line-height: 2rem;
+  }
+
+  .navbar li > a {
+    font-size: 16px;
+  }
+
+  .navbar ul {
+    max-width: 100vw;
+    overflow: scroll;
+  }
+}
+
